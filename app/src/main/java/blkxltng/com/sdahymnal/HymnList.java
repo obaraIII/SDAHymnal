@@ -1,0 +1,61 @@
+package blkxltng.com.sdahymnal;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ListView;
+
+import java.io.IOException;
+import java.util.List;
+
+public class HymnList extends AppCompatActivity {
+
+    ListView mListView;
+    List<Hymns> mHymnsList;
+    DatabaseHelper mDatabaseHelper;
+    HymnListAdapter mHymnListAdapter;
+    HymnList mHymnListActivity;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_hymn_list);
+
+        Intent intent = getIntent();
+        String hymnSection = intent.getStringExtra("HYMN_SECTION");
+
+        if(getSupportActionBar() != null) {
+            getSupportActionBar().setTitle(hymnSection);
+        }
+
+        mDatabaseHelper = new DatabaseHelper(getApplicationContext());
+        try {
+            mDatabaseHelper.createDatabase();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        mHymnsList = mDatabaseHelper.getListHymns();
+        mHymnListAdapter = new HymnListAdapter(getApplicationContext(), mHymnListActivity, mHymnsList);
+
+        if(mHymnsList != null) {
+            mListView = (ListView) findViewById(R.id.listview_hymns);
+            mListView.setAdapter(mHymnListAdapter);
+        }
+
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Log.d("LOG_TAG", "Clicked");
+                Intent intent = new Intent(getApplicationContext(), HymnActivity.class);
+                String hymn = mHymnsList.get(i).getNumber() + " - " + mHymnsList.get(i).getTitle();
+                intent.putExtra("HYMN_HEADER", hymn);
+                intent.putExtra("HYMN_ID", i);
+                startActivity(intent);
+            }
+        });
+    }
+}
