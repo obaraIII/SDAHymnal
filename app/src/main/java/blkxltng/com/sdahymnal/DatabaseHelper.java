@@ -301,7 +301,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Hymns hymns = null;
 
         try {
-            cursor = db.rawQuery("SELECT * FROM " + TB_HYMNS + " WHERE " + COL_TITLE + " LIKE '%" + searchQuery + "%'", null);
+            cursor = db.rawQuery("SELECT * FROM " + TB_HYMNS + " WHERE " + COL_TITLE + " LIKE '%" + searchQuery + "%'"
+                    + " OR " + COL_NUMBER + " LIKE '%" + searchQuery + "%'", null);
             if(cursor == null) return null;
 
             cursor.moveToFirst();
