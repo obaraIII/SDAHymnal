@@ -278,6 +278,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         List<Hymns> listHymns = new ArrayList<Hymns>();
         SQLiteDatabase db = this.getWritableDatabase();
 
+        Log.d("SearchQuery", searchQuery);
+
         // Define a projection that specifies which columns from the database
         // you will actually use after this query.
         String[] projection = {
@@ -299,7 +301,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Hymns hymns = null;
 
         try {
-            cursor = db.query(TB_HYMNS, projection, selection, selectionArgs, null, null, sortOrder);
+            cursor = db.rawQuery("SELECT * FROM " + TB_HYMNS + " WHERE " + COL_TITLE + " LIKE '%" + searchQuery + "%'", null);
             if(cursor == null) return null;
 
             cursor.moveToFirst();

@@ -4,6 +4,9 @@ import android.app.SearchManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import java.io.IOException;
@@ -50,6 +53,21 @@ public class SearchResultsActivity extends AppCompatActivity {
                 mListView = (ListView) findViewById(R.id.listview_search);
                 mListView.setAdapter(mHymnListAdapter);
             }
+
+            mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    Log.d("LOG_TAG", "Clicked");
+                    Intent intent = new Intent(getApplicationContext(), HymnActivity.class);
+                    int hymnNumber = listResults.get(i).getNumber();
+                    String hymnName = listResults.get(i).getTitle();
+                    intent.putExtra("HYMN_NUMBER", hymnNumber);
+                    intent.putExtra("HYMN_NAME", hymnName);
+                    intent.putExtra("HYMN_ID", i);
+                    startActivity(intent);
+                }
+            });
+
 
         }
 
