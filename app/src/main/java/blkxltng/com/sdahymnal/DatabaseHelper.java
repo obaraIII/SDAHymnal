@@ -81,7 +81,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             String mPath = DB_PATH + DB_NAME;
             tempDB = SQLiteDatabase.openDatabase(mPath, null, SQLiteDatabase.OPEN_READWRITE);
         } catch (SQLiteException e) {
-            Log.e("tle99 - check", e.getMessage());
+            Log.e("blkxltng - check", e.getMessage());
         }
         if (tempDB != null)
             tempDB.close();
@@ -109,7 +109,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             mOutput.close();
             mInput.close();
         } catch (Exception e) {
-            Log.e("tle99 - copyDatabase", e.getMessage());
+            Log.e("blkxltng - copyDatabase", e.getMessage());
         }
 
     }
@@ -137,7 +137,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             try {
                 copyDatabase();
             } catch (IOException e) {
-                Log.e("tle99 - create", e.getMessage());
+                Log.e("blkxltng - create", e.getMessage());
             }
         }
     }
@@ -163,7 +163,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             } while (cursor.moveToNext());
             cursor.close();
         } catch (Exception e) {
-            Log.e("tle99", e.getMessage());
+            Log.e("blkxltng", e.getMessage());
         }
 
         db.close();
@@ -193,7 +193,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             } while (cursor.moveToNext());
             cursor.close();
         } catch (Exception e) {
-            Log.e("tle99", e.getMessage());
+            Log.e("blkxltng", e.getMessage());
         }
 
         db.close();
@@ -224,7 +224,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             } while (cursor.getPosition() < last);
             cursor.close();
         } catch (Exception e) {
-            Log.e("tle99", e.getMessage());
+            Log.e("blkxltng", e.getMessage());
         }
 
         db.close();
@@ -266,7 +266,53 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             listHymns.add(hymns);
             cursor.close();
         } catch (Exception e) {
-            Log.e("tle99", e.getMessage());
+            Log.e("blkxltng", e.getMessage());
+        }
+
+        db.close();
+
+        return listHymns;
+    }
+
+    public List<Hymns> searchHymns(String searchQuery){
+        List<Hymns> listHymns = new ArrayList<Hymns>();
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        // Define a projection that specifies which columns from the database
+        // you will actually use after this query.
+        String[] projection = {
+                COL_ID,
+                COL_NUMBER,
+                COL_TITLE
+        };
+
+        // Filter results WHERE "title" = 'My Title'
+        String selection = COL_TITLE + " = ?";
+        String[] selectionArgs = { "Title" };
+
+        // How you want the results sorted in the resulting Cursor
+        String sortOrder = COL_NUMBER + " DESC";
+
+
+        Cursor cursor;
+
+        Hymns hymns = null;
+
+        try {
+            cursor = db.query(TB_HYMNS, projection, selection, selectionArgs, null, null, sortOrder);
+            if(cursor == null) return null;
+
+            cursor.moveToFirst();
+            do {
+                hymns = new Hymns();
+                hymns.setId(cursor.getInt(cursor.getColumnIndex(COL_ID)));
+                hymns.setTitle(cursor.getString(cursor.getColumnIndex(COL_TITLE)));
+                hymns.setNumber(cursor.getInt(cursor.getColumnIndex(COL_NUMBER)));
+                listHymns.add(hymns);
+            } while (cursor.moveToNext());
+            cursor.close();
+        } catch (Exception e) {
+            Log.e("blkxltng", e.getMessage());
         }
 
         db.close();

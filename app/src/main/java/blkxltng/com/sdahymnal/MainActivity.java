@@ -1,6 +1,7 @@
 package blkxltng.com.sdahymnal;
 
 import android.app.SearchManager;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -57,9 +58,6 @@ public class MainActivity extends AppCompatActivity {
             mMyRecyclerViewAdapter = new MyRecyclerViewAdapter(getApplicationContext(), mMainActivity, listSections);
             recyclerView.setAdapter(mMyRecyclerViewAdapter);
         }
-
-
-
     }
 
     @Override
@@ -70,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
         // Associate searchable configuration with the SearchView
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
         SearchView searchView = (SearchView) menu.findItem(R.id.search).getActionView();
-        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(new ComponentName(getApplicationContext(), SearchResultsActivity.class)));
 
         return true;
     }
