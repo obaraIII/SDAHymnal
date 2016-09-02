@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -80,6 +81,13 @@ public class HymnActivity extends AppCompatActivity {
 
         TextView textView = (TextView) findViewById(R.id.textview_lyrics);
         textView.setText(lyrics);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_hymn, menu);
+        return true;
     }
 
     private void getVerses() {
