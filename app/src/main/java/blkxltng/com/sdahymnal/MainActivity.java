@@ -83,8 +83,12 @@ public class MainActivity extends AppCompatActivity {
 
     public void sectionClicked(int position) {
         String section = listSections.get(position).getSection();
+        int firstHymn = listSections.get(position).getFirstHymn();
+        int lastHymn = listSections.get(position).getLastHymn();
         Intent intent = new Intent(this, HymnList.class);
         intent.putExtra("HYMN_SECTION", section);
+        intent.putExtra("HYMN_SECTION_FIRST", firstHymn);
+        intent.putExtra("HYMN_SECTION_LAST", lastHymn);
         startActivity(intent);
     }
 }

@@ -35,6 +35,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String COL_NUMBER = "Number";
     public static final String COL_SECTION = "Section";
     public static final String COL_SUBSECTION = "SubSection";
+    public static final String COL_FIRSTHYMN = "FirstHymn";
+    public static final String COL_LASTHYMN = "LastHymn";
     public static final String COL_REFRAIN = "Refrain";
     public static final String COL_VERSE1 = "Verse 1";
     public static final String COL_VERSE2 = "Verse 2";
@@ -155,6 +157,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             do {
                 hymns = new Hymns();
                 hymns.setSection(cursor.getString(cursor.getColumnIndex(COL_TITLE)));
+                hymns.setFirstHymn(cursor.getInt(cursor.getColumnIndex(COL_FIRSTHYMN)));
+                hymns.setLastHymn(cursor.getInt(cursor.getColumnIndex(COL_LASTHYMN)));
                 listSections.add(hymns);
             } while (cursor.moveToNext());
             cursor.close();
@@ -167,7 +171,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return listSections;
     }
 
-    public List<Hymns> getListHymns(){
+    public List<Hymns> getListAllHymns(){
         List<Hymns> listHymns = new ArrayList<Hymns>();
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor;
@@ -187,6 +191,37 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 hymns.setSection(cursor.getString(cursor.getColumnIndex(COL_SECTION)));
                 listHymns.add(hymns);
             } while (cursor.moveToNext());
+            cursor.close();
+        } catch (Exception e) {
+            Log.e("tle99", e.getMessage());
+        }
+
+        db.close();
+
+        return listHymns;
+    }
+
+    public List<Hymns> getListHymns(int first, int last){
+        List<Hymns> listHymns = new ArrayList<Hymns>();
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor;
+
+        Hymns hymns = null;
+
+        try {
+            cursor = db.rawQuery("SELECT * FROM " + TB_HYMNS , null);
+            if(cursor == null) return null;
+
+            cursor.moveToPosition(first-1);
+            do {
+                hymns = new Hymns();
+                hymns.setId(cursor.getInt(cursor.getColumnIndex(COL_ID)));
+                hymns.setTitle(cursor.getString(cursor.getColumnIndex(COL_TITLE)));
+                hymns.setNumber(cursor.getInt(cursor.getColumnIndex(COL_NUMBER)));
+                hymns.setSection(cursor.getString(cursor.getColumnIndex(COL_SECTION)));
+                listHymns.add(hymns);
+                cursor.moveToNext();
+            } while (cursor.getPosition() < last);
             cursor.close();
         } catch (Exception e) {
             Log.e("tle99", e.getMessage());

@@ -9,6 +9,25 @@ public class Hymns {
     private String title;
     private String section;
     private String subSection;
+    private int firstHymn;
+    private int lastHymn;
+
+    public int getFirstHymn() {
+        return firstHymn;
+    }
+
+    public void setFirstHymn(int firstHymn) {
+        this.firstHymn = firstHymn;
+    }
+
+    public int getLastHymn() {
+        return lastHymn;
+    }
+
+    public void setLastHymn(int lastHymn) {
+        this.lastHymn = lastHymn;
+    }
+
     private String image;
     private int id;
     private String verse1;

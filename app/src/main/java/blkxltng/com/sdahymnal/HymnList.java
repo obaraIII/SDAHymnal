@@ -26,6 +26,8 @@ public class HymnList extends AppCompatActivity {
 
         Intent intent = getIntent();
         String hymnSection = intent.getStringExtra("HYMN_SECTION");
+        int firstHymn = intent.getIntExtra("HYMN_SECTION_FIRST", 0);
+        int lastHymn = intent.getIntExtra("HYMN_SECTION_LAST", 0);
 
         if(getSupportActionBar() != null) {
             getSupportActionBar().setTitle(hymnSection);
@@ -38,7 +40,7 @@ public class HymnList extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        mHymnsList = mDatabaseHelper.getListHymns();
+        mHymnsList = mDatabaseHelper.getListHymns(firstHymn, lastHymn);
         mHymnListAdapter = new HymnListAdapter(getApplicationContext(), mHymnListActivity, mHymnsList);
 
         if(mHymnsList != null) {
@@ -51,8 +53,10 @@ public class HymnList extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Log.d("LOG_TAG", "Clicked");
                 Intent intent = new Intent(getApplicationContext(), HymnActivity.class);
-                String hymn = mHymnsList.get(i).getNumber() + " - " + mHymnsList.get(i).getTitle();
-                intent.putExtra("HYMN_HEADER", hymn);
+                int hymnNumber = mHymnsList.get(i).getNumber();
+                String hymnName = mHymnsList.get(i).getTitle();
+                intent.putExtra("HYMN_NUMBER", hymnNumber);
+                intent.putExtra("HYMN_NAME", hymnName);
                 intent.putExtra("HYMN_ID", i);
                 startActivity(intent);
             }

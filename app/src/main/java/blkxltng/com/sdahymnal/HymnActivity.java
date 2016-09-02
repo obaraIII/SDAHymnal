@@ -3,11 +3,11 @@ package blkxltng.com.sdahymnal;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.IOException;
 import java.util.List;
@@ -16,6 +16,7 @@ public class HymnActivity extends AppCompatActivity {
 
     List<Hymns> hymn;
     DatabaseHelper mDatabaseHelper;
+    String hymnName = "";
     String verse1 = "";
     String verse2 = "";
     String verse3 = "";
@@ -23,6 +24,7 @@ public class HymnActivity extends AppCompatActivity {
     String verse5 = "";
     String verse6 = "";
     String refrain = "";
+    boolean favorited = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,21 +33,34 @@ public class HymnActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+
+                if(favorited == false){
+                    fab.setImageResource(R.drawable.ic_favorite_border_white_24dp);
+                    Toast.makeText(getApplicationContext(), "Removed from favorites", Toast.LENGTH_SHORT).show();
+                } else {
+                    fab.setImageResource(R.drawable.ic_favorite_white_24dp);
+                    Toast.makeText(getApplicationContext(), "Added to favorites", Toast.LENGTH_SHORT).show();
+                }
+
+                favorited = !favorited;
+//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
             }
         });
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         Intent intent = getIntent();
-        String hymnName = intent.getStringExtra("HYMN_HEADER");
         int hymnId = intent.getIntExtra("HYMN_ID", 0);
+        int hymnNumber = intent.getIntExtra("HYMN_NUMBER", 0);
+        String hymnName = intent.getStringExtra("HYMN_NAME");
 
-        getSupportActionBar().setTitle(hymnName);
+        String hymnTitle = "Hymn #" + hymnNumber;
+
+        getSupportActionBar().setTitle(hymnTitle);
 
         mDatabaseHelper = new DatabaseHelper(getApplicationContext());
         try {
@@ -53,6 +68,9 @@ public class HymnActivity extends AppCompatActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        TextView textViewHymnTitle = (TextView) findViewById(R.id.textview_hymntitle);
+        textViewHymnTitle.setText(hymnName);
 
         hymn = mDatabaseHelper.getHymn(hymnId);
 
