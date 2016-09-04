@@ -322,4 +322,66 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         return listHymns;
     }
+
+    public List<Hymns> favoritedHymn(int hymnNumber, int favorited){
+        List<Hymns> listHymns = new ArrayList<Hymns>();
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor;
+
+        Hymns hymns = null;
+
+        String updateString = "UPDATE " + TB_HYMNS + " SET Favorited=" + favorited + " WHERE Number=" + hymnNumber;
+
+        try {
+            cursor = db.rawQuery(updateString, null);
+            if(cursor == null) return null;
+
+            cursor.moveToFirst();
+//            do {
+//                hymns = new Hymns();
+//                hymns.setId(cursor.getInt(cursor.getColumnIndex(COL_ID)));
+//                hymns.setTitle(cursor.getString(cursor.getColumnIndex(COL_TITLE)));
+//                hymns.setNumber(cursor.getInt(cursor.getColumnIndex(COL_NUMBER)));
+//                hymns.setSection(cursor.getString(cursor.getColumnIndex(COL_SECTION)));
+//                listHymns.add(hymns);
+//            } while (cursor.moveToNext());
+            cursor.close();
+        } catch (Exception e) {
+            Log.e("blkxltng", e.getMessage());
+        }
+
+        db.close();
+
+        return listHymns;
+    }
+
+    public List<Hymns> getFavoriteHymns(){
+        List<Hymns> listHymns = new ArrayList<Hymns>();
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor;
+
+        Hymns hymns = null;
+
+        try {
+            cursor = db.rawQuery("SELECT * FROM " + TB_HYMNS + " WHERE Favorited = 1" , null);
+            if(cursor == null) return null;
+
+            cursor.moveToFirst();
+            do {
+                hymns = new Hymns();
+                hymns.setId(cursor.getInt(cursor.getColumnIndex(COL_ID)));
+                hymns.setTitle(cursor.getString(cursor.getColumnIndex(COL_TITLE)));
+                hymns.setNumber(cursor.getInt(cursor.getColumnIndex(COL_NUMBER)));
+                hymns.setSection(cursor.getString(cursor.getColumnIndex(COL_SECTION)));
+                listHymns.add(hymns);
+            } while (cursor.moveToNext());
+            cursor.close();
+        } catch (Exception e) {
+            Log.e("blkxltng", e.getMessage());
+        }
+
+        db.close();
+
+        return listHymns;
+    }
 }

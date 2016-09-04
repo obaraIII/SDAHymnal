@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.ShareActionProvider;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -18,6 +19,8 @@ public class HymnActivity extends AppCompatActivity {
 
     List<Hymns> hymn;
     DatabaseHelper mDatabaseHelper;
+    int hymnId;
+    int hymnNumber;
     String hymnName = "";
     String verse1 = "";
     String verse2 = "";
@@ -27,6 +30,8 @@ public class HymnActivity extends AppCompatActivity {
     String verse6 = "";
     String refrain = "";
     boolean favorited = false;
+    private ShareActionProvider mShareActionProvider;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,9 +61,9 @@ public class HymnActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         Intent intent = getIntent();
-        int hymnId = intent.getIntExtra("HYMN_ID", 0);
-        int hymnNumber = intent.getIntExtra("HYMN_NUMBER", 0);
-        String hymnName = intent.getStringExtra("HYMN_NAME");
+        hymnId = intent.getIntExtra("HYMN_ID", 0);
+        hymnNumber = intent.getIntExtra("HYMN_NUMBER", 0);
+        hymnName = intent.getStringExtra("HYMN_NAME");
 
         String hymnTitle = "Hymn #" + hymnNumber;
 
@@ -88,6 +93,13 @@ public class HymnActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_hymn, menu);
+
+//        // Locate MenuItem with ShareActionProvider
+//        MenuItem item = menu.findItem(R.id.share);
+//
+//        // Fetch and store ShareActionProvider
+//        mShareActionProvider = (ShareActionProvider) MenuItemCompat.getActionProvider(item);
+
         return true;
     }
 
@@ -96,6 +108,16 @@ public class HymnActivity extends AppCompatActivity {
         if (item.getItemId() == android.R.id.home) {
             onBackPressed();
             return true;
+        }
+
+        if(item.getItemId() == R.id.share) {
+            String subject ="Hymn #" + hymnNumber + " - " + hymnName;
+            String lyrics = arrangeHymn();
+            Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+            sharingIntent.setType("text/plain");
+            sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, subject);
+            sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, lyrics);
+            startActivity(Intent.createChooser(sharingIntent, "Share Using:"));
         }
         return false;
     }
@@ -138,5 +160,12 @@ public class HymnActivity extends AppCompatActivity {
 
         return lyrics;
     }
+
+//    // Call to update the share intent
+//    private void setShareIntent(Intent shareIntent) {
+//        if (mShareActionProvider != null) {
+//            mShareActionProvider.setShareIntent(shareIntent);
+//        }
+//    }
 
 }
