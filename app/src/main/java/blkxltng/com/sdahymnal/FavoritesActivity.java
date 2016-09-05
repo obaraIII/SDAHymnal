@@ -24,6 +24,8 @@ public class FavoritesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favorites);
 
+        getSupportActionBar().setTitle("Your Favorites");
+
         //use the query to search your data somehow
         mDatabaseHelper = new DatabaseHelper(getApplicationContext());
         try {
