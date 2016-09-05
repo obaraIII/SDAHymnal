@@ -71,25 +71,31 @@ public class HymnActivity extends AppCompatActivity {
         TextView textView = (TextView) findViewById(R.id.textview_lyrics);
         textView.setText(lyrics);
 
+        Log.d("Check if favorited", "" + hymn.get(0).getFavorited());
+
         final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         if(hymn.get(0).getFavorited() == 1){
             fab.setImageResource(R.drawable.ic_favorite_white_24dp);
+            favorited = true;
         } else {
-            fab.setImageResource(R.drawable.ic_favorite_border_white_24dp);;
+            fab.setImageResource(R.drawable.ic_favorite_border_white_24dp);
+            favorited = false;
         }
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                if(hymn.get(0).getFavorited() == 1){
+                if(favorited){
                     Log.d("Set unfave", "" + hymn.get(0).getFavorited());
                     mDatabaseHelper.favoritedHymn(hymnNumber, 0);
                     fab.setImageResource(R.drawable.ic_favorite_border_white_24dp);
+                    favorited = !favorited;
                     Toast.makeText(getApplicationContext(), "Removed from favorites", Toast.LENGTH_SHORT).show();
                 } else {
                     Log.d("Set fave", "" + hymn.get(0).getFavorited());
                     mDatabaseHelper.favoritedHymn(hymnNumber, 1);
                     fab.setImageResource(R.drawable.ic_favorite_white_24dp);
+                    favorited = !favorited;
                     Toast.makeText(getApplicationContext(), "Added to favorites", Toast.LENGTH_SHORT).show();
                 }
 
