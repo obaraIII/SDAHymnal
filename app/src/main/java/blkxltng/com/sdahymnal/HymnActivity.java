@@ -6,6 +6,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.ShareActionProvider;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -40,24 +41,6 @@ public class HymnActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                if(favorited == false){
-                    fab.setImageResource(R.drawable.ic_favorite_border_white_24dp);
-                    Toast.makeText(getApplicationContext(), "Removed from favorites", Toast.LENGTH_SHORT).show();
-                } else {
-                    fab.setImageResource(R.drawable.ic_favorite_white_24dp);
-                    Toast.makeText(getApplicationContext(), "Added to favorites", Toast.LENGTH_SHORT).show();
-                }
-
-                favorited = !favorited;
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-            }
-        });
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         Intent intent = getIntent();
@@ -87,6 +70,31 @@ public class HymnActivity extends AppCompatActivity {
 
         TextView textView = (TextView) findViewById(R.id.textview_lyrics);
         textView.setText(lyrics);
+
+        final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        if(hymn.get(0).getFavorited() == 1){
+            fab.setImageResource(R.drawable.ic_favorite_white_24dp);
+        } else {
+            fab.setImageResource(R.drawable.ic_favorite_border_white_24dp);;
+        }
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if(hymn.get(0).getFavorited() == 1){
+                    Log.d("Set unfave", "" + hymn.get(0).getFavorited());
+                    mDatabaseHelper.favoritedHymn(hymnNumber, 0);
+                    fab.setImageResource(R.drawable.ic_favorite_border_white_24dp);
+                    Toast.makeText(getApplicationContext(), "Removed from favorites", Toast.LENGTH_SHORT).show();
+                } else {
+                    Log.d("Set fave", "" + hymn.get(0).getFavorited());
+                    mDatabaseHelper.favoritedHymn(hymnNumber, 1);
+                    fab.setImageResource(R.drawable.ic_favorite_white_24dp);
+                    Toast.makeText(getApplicationContext(), "Added to favorites", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });
     }
 
     @Override

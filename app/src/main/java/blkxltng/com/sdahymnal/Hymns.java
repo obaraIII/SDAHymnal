@@ -37,6 +37,15 @@ public class Hymns {
     private String verse5;
     private String verse6;
     private String refrain;
+    private int favorited;
+
+    public int getFavorited() {
+        return favorited;
+    }
+
+    public void setFavorited(int favorited) {
+        this.favorited = favorited;
+    }
 
     public String getRefrain() {
         return refrain;

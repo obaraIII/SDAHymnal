@@ -44,6 +44,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String COL_VERSE4 = "Verse 4";
     public static final String COL_VERSE5 = "Verse 5";
     public static final String COL_VERSE6 = "Verse 6";
+    public static final String COL_FAVORITED = "Favorited";
 
     private SQLiteDatabase mDatabase;
     private Context mContext;
@@ -263,6 +264,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 hymns.setVerse6(cursor.getString(cursor.getColumnIndex(COL_VERSE6)));
             if(cursor.getString(cursor.getColumnIndex(COL_REFRAIN)) != null)
                 hymns.setRefrain(cursor.getString(cursor.getColumnIndex(COL_REFRAIN)));
+            hymns.setFavorited(cursor.getInt(cursor.getColumnIndex(COL_FAVORITED)));
             listHymns.add(hymns);
             cursor.close();
         } catch (Exception e) {
@@ -323,36 +325,20 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return listHymns;
     }
 
-    public List<Hymns> favoritedHymn(int hymnNumber, int favorited){
-        List<Hymns> listHymns = new ArrayList<Hymns>();
+    public void favoritedHymn(int hymnNumber, int favorited){
+
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor;
 
-        Hymns hymns = null;
+        Log.d("Favorited_Hymn", "Number: " + hymnNumber + " Favorited: " + favorited);
 
-        String updateString = "UPDATE " + TB_HYMNS + " SET Favorited=" + favorited + " WHERE Number=" + hymnNumber;
+        String updateString = "UPDATE " + TB_HYMNS + " SET " + COL_FAVORITED + " = " + favorited +
+                " WHERE " + COL_NUMBER + " = " + hymnNumber;
 
-        try {
-            cursor = db.rawQuery(updateString, null);
-            if(cursor == null) return null;
+        Log.d("UpdateString", updateString);
 
-            cursor.moveToFirst();
-//            do {
-//                hymns = new Hymns();
-//                hymns.setId(cursor.getInt(cursor.getColumnIndex(COL_ID)));
-//                hymns.setTitle(cursor.getString(cursor.getColumnIndex(COL_TITLE)));
-//                hymns.setNumber(cursor.getInt(cursor.getColumnIndex(COL_NUMBER)));
-//                hymns.setSection(cursor.getString(cursor.getColumnIndex(COL_SECTION)));
-//                listHymns.add(hymns);
-//            } while (cursor.moveToNext());
-            cursor.close();
-        } catch (Exception e) {
-            Log.e("blkxltng", e.getMessage());
-        }
+        db.execSQL(updateString);
 
         db.close();
-
-        return listHymns;
     }
 
     public List<Hymns> getFavoriteHymns(){
