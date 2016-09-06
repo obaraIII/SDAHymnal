@@ -157,6 +157,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             cursor.moveToFirst();
             do {
                 hymns = new Hymns();
+                hymns.setId(cursor.getInt(cursor.getColumnIndex(COL_ID)));
                 hymns.setSection(cursor.getString(cursor.getColumnIndex(COL_TITLE)));
                 hymns.setFirstHymn(cursor.getInt(cursor.getColumnIndex(COL_FIRSTHYMN)));
                 hymns.setLastHymn(cursor.getInt(cursor.getColumnIndex(COL_LASTHYMN)));

@@ -42,10 +42,10 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
         final Hymns hymns = mHymnsList.get(i);
 
         //Download image using picasso library
-        Picasso.with(mContext).load(hymns.getImage())
+        Picasso.with(mContext).load(imageChooser(hymns.getId()))
                 .error(R.drawable.placeholder)
                 .placeholder(R.drawable.placeholder)
-                .centerInside()
+                .resize(500,500)
                 .into(customViewHolder.imageView);
 
         String sectionString = hymns.getSection() + "\n(Hymns " + hymns.getFirstHymn() + "-" + hymns.getLastHymn() + ")";
@@ -79,5 +79,37 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
             this.textView = (TextView) view.findViewById(R.id.textview_card);
         }
 
+    }
+
+    public int imageChooser(int input) {
+        if(input == 1)
+            return R.drawable.img1;
+        if(input == 2)
+            return R.drawable.img2;
+        if(input == 3)
+            return R.drawable.img3;
+        if(input == 4)
+            return R.drawable.img4;
+        if(input == 5)
+            return R.drawable.img5;
+        if(input == 6)
+            return R.drawable.img6;
+        if(input == 7)
+            return R.drawable.img7;
+        if(input == 8)
+            return R.drawable.img8;
+        if(input == 9)
+            return R.drawable.img9;
+        if(input == 10)
+            return R.drawable.img10;
+        if(input == 11)
+            return R.drawable.img11;
+        if(input == 12)
+            return R.drawable.img12;
+        if(input == 13)
+            return R.drawable.img13;
+        if(input == 14)
+            return R.drawable.img14;
+        return R.drawable.placeholder;
     }
 }
