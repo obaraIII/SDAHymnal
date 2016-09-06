@@ -25,23 +25,31 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <TextView
             android:id="@+id/textview_hymntitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="?attr/actionBarSize"
-            android:padding="8dp"
-            android:textSize="32dp"/>
+            android:background="@color/colorPrimaryLight"
+            android:elevation="@dimen/title_elevation"
+            android:padding="@dimen/padding_hymnText"
+            android:textColor="@color/colorTextPrimary"
+            android:textSize="@dimen/text_hymnTitle"
+            android:textStyle="bold|italic"/>
 
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@id/textview_hymntitle">
+
             <TextView
                 android:id="@+id/textview_lyrics"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:padding="8dp">
+                android:layout_height="wrap_content"
+                android:padding="@dimen/padding_hymnText"
+                android:textColor="@color/colorTextSecondary"
+                android:textSize="@dimen/text_hymnVerses">
 
             </TextView>
         </ScrollView>

@@ -3,7 +3,6 @@ package blkxltng.com.sdahymnal;
 import android.app.Activity;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,15 +48,14 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
                 .centerInside()
                 .into(customViewHolder.imageView);
 
+        String sectionString = hymns.getSection() + "\n(Hymns " + hymns.getFirstHymn() + "-" + hymns.getLastHymn() + ")";
+
         //Setting text view title
-        customViewHolder.textView.setText(hymns.getSection());
+        customViewHolder.textView.setText(sectionString);
 
         customViewHolder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d("LOG_TAG", "Tapped " + hymns.getSection());
-                //currentHymn = hymns.getSection();
-
                 MainActivity mainActivity = (MainActivity)mActivity;
                 mainActivity.sectionClicked(i);
             }

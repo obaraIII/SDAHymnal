@@ -11,6 +11,16 @@ public class Hymns {
     private String subSection;
     private int firstHymn;
     private int lastHymn;
+    private String image;
+    private int id;
+    private String verse1;
+    private String verse2;
+    private String verse3;
+    private String verse4;
+    private String verse5;
+    private String verse6;
+    private String refrain;
+    private int favorited;
 
     public int getFirstHymn() {
         return firstHymn;
@@ -27,17 +37,6 @@ public class Hymns {
     public void setLastHymn(int lastHymn) {
         this.lastHymn = lastHymn;
     }
-
-    private String image;
-    private int id;
-    private String verse1;
-    private String verse2;
-    private String verse3;
-    private String verse4;
-    private String verse5;
-    private String verse6;
-    private String refrain;
-    private int favorited;
 
     public int getFavorited() {
         return favorited;
