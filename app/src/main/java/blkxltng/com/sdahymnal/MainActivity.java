@@ -13,9 +13,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.MobileAds;
+import com.google.firebase.analytics.FirebaseAnalytics;
 
 import java.io.IOException;
 import java.util.List;
@@ -29,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
     MyRecyclerViewAdapter mMyRecyclerViewAdapter;
     List<Hymns> listSections;
     MainActivity mMainActivity;
+    private FirebaseAnalytics mFirebaseAnalytics;
 
 
     @Override
@@ -63,12 +62,8 @@ public class MainActivity extends AppCompatActivity {
             recyclerView.setAdapter(mMyRecyclerViewAdapter);
         }
 
-        MobileAds.initialize(getApplicationContext(), "ca-app-pub-3940256099942544~3347511713");
-        AdView mAdView = (AdView) findViewById(R.id.adView);
-        AdRequest adRequest = new AdRequest.Builder().build();
-        mAdView.loadAd(adRequest);
-
-
+        // Obtain the FirebaseAnalytics instance.
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
     }
 
     @Override
@@ -97,6 +92,13 @@ public class MainActivity extends AppCompatActivity {
         }
 
         if(id == R.id.action_favorites) {
+
+            Bundle bundle = new Bundle();
+            bundle.putString(FirebaseAnalytics.Param.ITEM_ID, "1");
+            bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, "favorites");
+            bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "button");
+            mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
+
             Intent intent = new Intent(getApplicationContext(), FavoritesActivity.class);
             startActivity(intent);
         }
