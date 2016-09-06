@@ -16,6 +16,8 @@ import java.util.HashSet;
 
 /**
  * Created by firej on 9/6/2016.
+ *
+ * Inspired by Content Provider Tutorial on Vogella.com
  */
 public class HymnProvider extends ContentProvider {
 
