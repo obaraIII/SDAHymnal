@@ -62,6 +62,10 @@
             <meta-data android:name="android.appwidget.provider"
                        android:resource="@xml/hymn_widget_info" />
         </receiver>
+        <provider
+            android:name=".HymnProvider"
+            android:authorities="blkxltng.com.sdahymnal" >
+        </provider>
     </application>
 
 </manifest>

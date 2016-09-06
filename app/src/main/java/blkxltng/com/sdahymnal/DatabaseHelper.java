@@ -248,8 +248,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             cursor.moveToPosition(position);
             hymns = new Hymns();
             hymns.setId(cursor.getInt(cursor.getColumnIndex(COL_ID)));
-//                hymns.setTitle(cursor.getString(cursor.getColumnIndex(COL_TITLE)));
-//                hymns.setNumber(cursor.getInt(cursor.getColumnIndex(COL_NUMBER)));
+            hymns.setTitle(cursor.getString(cursor.getColumnIndex(COL_TITLE)));
+            hymns.setNumber(cursor.getInt(cursor.getColumnIndex(COL_NUMBER)));
 //                hymns.setSection(cursor.getString(cursor.getColumnIndex(COL_SECTION)));
             if(cursor.getString(cursor.getColumnIndex(COL_VERSE1)) != null)
                 hymns.setVerse1(cursor.getString(cursor.getColumnIndex(COL_VERSE1)));
