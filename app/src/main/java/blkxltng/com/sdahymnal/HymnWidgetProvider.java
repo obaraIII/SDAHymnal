@@ -1,6 +1,5 @@
 package blkxltng.com.sdahymnal;
 
-import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
@@ -61,12 +60,14 @@ public class HymnWidgetProvider extends AppWidgetProvider {
             Intent intent = new Intent(context, HymnWidgetProvider.class);
             intent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
             intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, appWidgetIds);
-            PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+//            PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
             appWidgetManager.updateAppWidget(widgetId, remoteViews);
         }
     }
 
     private void getVerses() {
+        if(hymn.get(0).getTitle() != null)
+            hymnName = hymn.get(0).getTitle();
         if(hymn.get(0).getVerse1() != null)
             verse1 = hymn.get(0).getVerse1();
         if(hymn.get(0).getVerse2() != null)
@@ -87,8 +88,10 @@ public class HymnWidgetProvider extends AppWidgetProvider {
 
         String lyrics = "";
 
+        if(hymnName != "")
+            lyrics = hymnName + "\n\n";
         if(verse1 != "")
-            lyrics = "Verse 1:\n" + verse1 + "\n\n";
+            lyrics += "Verse 1:\n" + verse1 + "\n\n";
         if(refrain != "")
             lyrics += "Refrain:\n" + refrain + "\n\n";
         if(verse2 != "")
