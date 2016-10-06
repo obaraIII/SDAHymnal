@@ -1,4 +1,4 @@
-package blkxltng.com.sdahymnal;
+package com.blkxltng.sdahymnal;
 
 import android.app.SearchManager;
 import android.content.Intent;
@@ -11,6 +11,8 @@ import android.widget.ListView;
 
 import java.io.IOException;
 import java.util.List;
+
+import com.blkxltng.sdahymnal.R;
 
 public class SearchResultsActivity extends AppCompatActivity {
 

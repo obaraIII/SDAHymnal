@@ -1,4 +1,4 @@
-package blkxltng.com.sdahymnal;
+package com.blkxltng.sdahymnal;
 
 /**
  * Created by firej on 8/30/2016.

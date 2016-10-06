@@ -1,7 +1,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
       xmlns:app="http://schemas.android.com/apk/res-auto"
       xmlns:tools="http://schemas.android.com/tools"
-      tools:context="blkxltng.com.sdahymnal.HymnActivity">
+      tools:context="com.blkxltng.sdahymnal.com.com.sdahymnal.HymnActivity">
 
     <item android:id="@+id/share"
           android:title="Share"

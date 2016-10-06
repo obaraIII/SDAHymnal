@@ -1,4 +1,4 @@
-package blkxltng.com.sdahymnal;
+package com.blkxltng.sdahymnal;
 
 import android.app.SearchManager;
 import android.content.ComponentName;
@@ -13,14 +13,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.MobileAds;
 import com.google.firebase.analytics.FirebaseAnalytics;
 
 import java.io.IOException;
 import java.util.List;
 
+import com.blkxltng.sdahymnal.R;
 import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity {
@@ -65,11 +63,11 @@ public class MainActivity extends AppCompatActivity {
             recyclerView.setAdapter(mMyRecyclerViewAdapter);
         }
 
-        MobileAds.initialize(getApplicationContext(), "ca-app-pub-3940256099942544~3347511713");
-
-        AdView mAdView = (AdView) findViewById(R.id.adView);
-        AdRequest adRequest = new AdRequest.Builder().build();
-        mAdView.loadAd(adRequest);
+//        MobileAds.initialize(getApplicationContext(), "ca-app-pub-3940256099942544~3347511713");
+//
+//        AdView mAdView = (AdView) findViewById(R.id.adView);
+//        AdRequest adRequest = new AdRequest.Builder().build();
+//        mAdView.loadAd(adRequest);
 
 
         // Obtain the FirebaseAnalytics instance.

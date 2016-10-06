@@ -1,4 +1,4 @@
-package blkxltng.com.sdahymnal;
+package com.blkxltng.sdahymnal;
 
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
@@ -9,6 +9,8 @@ import android.widget.RemoteViews;
 import java.io.IOException;
 import java.util.List;
 import java.util.Random;
+
+import com.blkxltng.sdahymnal.R;
 
 /**
  * Created by firej on 9/5/2016.
@@ -26,7 +28,10 @@ public class HymnWidgetProvider extends AppWidgetProvider {
     String verse4 = "";
     String verse5 = "";
     String verse6 = "";
+    String verse7 = "";
     String refrain = "";
+    String refrain2 = "";
+    int subSection = 0;
 
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
@@ -80,8 +85,13 @@ public class HymnWidgetProvider extends AppWidgetProvider {
             verse5 = hymn.get(0).getVerse5();
         if(hymn.get(0).getVerse6() != null)
             verse6 = hymn.get(0).getVerse6();
+        if(hymn.get(0).getVerse7() != null)
+            verse7 = hymn.get(0).getVerse7();
         if(hymn.get(0).getRefrain() != null)
             refrain = hymn.get(0).getRefrain();
+        if(hymn.get(0).getRefrain2() != null)
+            refrain2 = hymn.get(0).getRefrain2();
+        subSection = hymn.get(0).getSubSection();
     }
 
     private String arrangeHymn() {
@@ -104,6 +114,11 @@ public class HymnWidgetProvider extends AppWidgetProvider {
             lyrics += "Verse 5:\n" + verse5 + "\n\n";
         if(verse6 != "")
             lyrics += "Verse 6:\n" + verse6 + "\n\n";
+        if(verse7 != "")
+            lyrics += "Verse 7:\n" + verse7 + "\n\n";
+        if(refrain2 != "")
+            lyrics += "Refrain 2:\n" + refrain2 + "\n\n";
+        lyrics += "Sub-section: " + subSection + "\n\n";
 
         return lyrics;
     }

@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="blkxltng.com.sdahymnal.HymnActivity">
+    tools:context="com.blkxltng.sdahymnal.HymnActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -31,10 +31,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="?attr/actionBarSize"
-            android:background="@color/colorPrimaryLight"
+            android:background="@color/colorPrimary"
             android:elevation="@dimen/title_elevation"
             android:padding="@dimen/padding_hymnText"
-            android:textColor="@color/colorTextPrimary"
+            android:textColor="@color/colorIcons"
             android:textSize="@dimen/text_hymnTitle"
             android:textStyle="bold|italic"/>
 

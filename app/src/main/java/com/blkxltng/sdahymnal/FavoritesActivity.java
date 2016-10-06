@@ -1,9 +1,8 @@
-package blkxltng.com.sdahymnal;
+package com.blkxltng.sdahymnal;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.ShareActionProvider;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -12,28 +11,24 @@ import android.widget.ListView;
 import java.io.IOException;
 import java.util.List;
 
-public class HymnList extends AppCompatActivity {
+import com.blkxltng.sdahymnal.R;
 
-    ListView mListView;
-    List<Hymns> mHymnsList;
+public class FavoritesActivity extends AppCompatActivity {
+
+    List<Hymns> listFavorites;
     DatabaseHelper mDatabaseHelper;
     HymnListAdapter mHymnListAdapter;
-    HymnList mHymnListActivity;
+    FavoritesActivity mFavoritesActivity;
+    ListView mListView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_hymn_list);
+        setContentView(R.layout.activity_favorites);
 
-        Intent intent = getIntent();
-        String hymnSection = intent.getStringExtra("HYMN_SECTION");
-        int firstHymn = intent.getIntExtra("HYMN_SECTION_FIRST", 0);
-        int lastHymn = intent.getIntExtra("HYMN_SECTION_LAST", 0);
+        getSupportActionBar().setTitle("Your Favorites");
 
-        if(getSupportActionBar() != null) {
-            getSupportActionBar().setTitle(hymnSection);
-        }
-
+        //use the query to search your data somehow
         mDatabaseHelper = new DatabaseHelper(getApplicationContext());
         try {
             mDatabaseHelper.createDatabase();
@@ -41,11 +36,12 @@ public class HymnList extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        mHymnsList = mDatabaseHelper.getListHymns(firstHymn, lastHymn);
-        mHymnListAdapter = new HymnListAdapter(getApplicationContext(), mHymnListActivity, mHymnsList);
+        listFavorites = mDatabaseHelper.getFavoriteHymns();
 
-        if(mHymnsList != null) {
-            mListView = (ListView) findViewById(R.id.listview_hymns);
+        mHymnListAdapter = new HymnListAdapter(getApplicationContext(), mFavoritesActivity, listFavorites);
+
+        if(listFavorites != null) {
+            mListView = (ListView) findViewById(R.id.listview_favorites);
             mListView.setAdapter(mHymnListAdapter);
         }
 
@@ -54,13 +50,15 @@ public class HymnList extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Log.d("LOG_TAG", "Clicked");
                 Intent intent = new Intent(getApplicationContext(), HymnActivity.class);
-                int hymnNumber = mHymnsList.get(i).getNumber();
-                String hymnName = mHymnsList.get(i).getTitle();
+                int hymnNumber = listFavorites.get(i).getNumber();
+                String hymnName = listFavorites.get(i).getTitle();
                 intent.putExtra("HYMN_NUMBER", hymnNumber);
                 intent.putExtra("HYMN_NAME", hymnName);
                 intent.putExtra("HYMN_ID", i);
                 startActivity(intent);
+                finish();
             }
         });
+
     }
 }

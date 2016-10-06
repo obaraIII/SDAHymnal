@@ -1,4 +1,4 @@
-package blkxltng.com.sdahymnal;
+package com.blkxltng.sdahymnal;
 
 import android.content.Context;
 import android.database.Cursor;

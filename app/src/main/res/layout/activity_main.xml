@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="blkxltng.com.sdahymnal.MainActivity">
+    tools:context="com.blkxltng.sdahymnal.MainActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -27,22 +27,21 @@
         android:scrollbars="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="?attr/actionBarSize"
-        android:layout_marginBottom="@dimen/adSize"/>
+        android:layout_marginTop="?attr/actionBarSize"/>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <com.google.android.gms.ads.AdView
-            android:id="@+id/adView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_alignParentBottom="true"
-            app:adSize="BANNER"
-            app:adUnitId="@string/banner_ad_unit_id"
-            android:background="@color/colorAdBackground">
-        </com.google.android.gms.ads.AdView>
-    </RelativeLayout>
+    <!--<RelativeLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent">-->
+        <!--<com.google.android.gms.ads.AdView-->
+            <!--android:id="@+id/adView"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_centerHorizontal="true"-->
+            <!--android:layout_alignParentBottom="true"-->
+            <!--app:adSize="BANNER"-->
+            <!--app:adUnitId="@string/banner_ad_unit_id"-->
+            <!--android:background="@color/colorAdBackground">-->
+        <!--</com.google.android.gms.ads.AdView>-->
+    <!--</RelativeLayout>-->
 
 </android.support.design.widget.CoordinatorLayout>

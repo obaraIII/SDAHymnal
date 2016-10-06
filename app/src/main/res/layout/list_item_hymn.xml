@@ -6,4 +6,5 @@
     android:id="@+id/list_item_hymn_textview"
     android:textColor="@color/colorTextPrimary"
     android:paddingTop="@dimen/padding_list"
-    android:paddingBottom="@dimen/padding_list"/>
+    android:paddingBottom="@dimen/padding_list"
+    android:paddingLeft="@dimen/padding_list"/>

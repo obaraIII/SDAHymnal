@@ -10,7 +10,7 @@
     <dimen name="dividerHeight">1px</dimen>
     <dimen name="adSize">50dp</dimen>
     <dimen name="padding_hymnText">8dp</dimen>
-    <dimen name="text_hymnTitle">32sp</dimen>
+    <dimen name="text_hymnTitle">20sp</dimen>
     <dimen name="text_hymnVerses">16sp</dimen>
     <dimen name="title_elevation">4dp</dimen>
 </resources>

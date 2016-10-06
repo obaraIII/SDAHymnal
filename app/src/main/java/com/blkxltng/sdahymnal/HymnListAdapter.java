@@ -1,4 +1,4 @@
-package blkxltng.com.sdahymnal;
+package com.blkxltng.sdahymnal;
 
 import android.app.Activity;
 import android.content.Context;
@@ -10,6 +10,8 @@ import android.widget.ListAdapter;
 import android.widget.TextView;
 
 import java.util.List;
+
+import com.blkxltng.sdahymnal.R;
 
 /**
  * Created by firej on 8/31/2016.

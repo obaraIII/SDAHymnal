@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest package="blkxltng.com.sdahymnal"
+<manifest package="com.blkxltng.sdahymnal"
           xmlns:android="http://schemas.android.com/apk/res/android">
 
     <uses-permission android:name="android.permission.INTERNET"/>
@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name="com.blkxltng.sdahymnal.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -23,21 +23,21 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".HymnList"
-            android:parentActivityName=".MainActivity">
+            android:name="com.blkxltng.sdahymnal.HymnList"
+            android:parentActivityName="com.blkxltng.sdahymnal.MainActivity">
         </activity>
         <activity
-            android:name=".HymnActivity"
+            android:name="com.blkxltng.sdahymnal.HymnActivity"
             android:label="@string/title_activity_hymn"
-            android:parentActivityName=".HymnList"
+            android:parentActivityName="com.blkxltng.sdahymnal.HymnList"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="blkxltng.com.sdahymnal.HymnList"/>
+                android:value="com.blkxltng.sdahymnal.HymnList"/>
         </activity>
         <activity
-            android:name=".SearchResultsActivity"
-            android:parentActivityName=".MainActivity">
+            android:name="com.blkxltng.sdahymnal.SearchResultsActivity"
+            android:parentActivityName="com.blkxltng.sdahymnal.MainActivity">
             <meta-data
                 android:name="android.app.default_searchable"
                 android:value=".SearchResultsActivity"/>
@@ -51,11 +51,11 @@
                 android:resource="@xml/searchable"/>
         </activity>
         <activity
-            android:name=".FavoritesActivity"
-            android:parentActivityName=".MainActivity">
+            android:name="com.blkxltng.sdahymnal.FavoritesActivity"
+            android:parentActivityName="com.blkxltng.sdahymnal.MainActivity">
         </activity>
 
-        <receiver android:name="HymnWidgetProvider" >
+        <receiver android:name="com.blkxltng.sdahymnal.HymnWidgetProvider" >
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
@@ -63,8 +63,8 @@
                        android:resource="@xml/hymn_widget_info" />
         </receiver>
         <provider
-            android:name=".HymnProvider"
-            android:authorities="blkxltng.com.sdahymnal" >
+            android:name="com.blkxltng.sdahymnal.HymnProvider"
+            android:authorities="com.com.sdahymnal" >
         </provider>
     </application>
 

@@ -1,4 +1,4 @@
-package blkxltng.com.sdahymnal;
+package com.blkxltng.sdahymnal;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,22 +11,30 @@ import android.widget.ListView;
 import java.io.IOException;
 import java.util.List;
 
-public class FavoritesActivity extends AppCompatActivity {
+import com.blkxltng.sdahymnal.R;
 
-    List<Hymns> listFavorites;
+public class HymnList extends AppCompatActivity {
+
+    ListView mListView;
+    List<Hymns> mHymnsList;
     DatabaseHelper mDatabaseHelper;
     HymnListAdapter mHymnListAdapter;
-    FavoritesActivity mFavoritesActivity;
-    ListView mListView;
+    HymnList mHymnListActivity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_favorites);
+        setContentView(R.layout.activity_hymn_list);
 
-        getSupportActionBar().setTitle("Your Favorites");
+        Intent intent = getIntent();
+        String hymnSection = intent.getStringExtra("HYMN_SECTION");
+        int firstHymn = intent.getIntExtra("HYMN_SECTION_FIRST", 0);
+        int lastHymn = intent.getIntExtra("HYMN_SECTION_LAST", 0);
 
-        //use the query to search your data somehow
+        if(getSupportActionBar() != null) {
+            getSupportActionBar().setTitle(hymnSection);
+        }
+
         mDatabaseHelper = new DatabaseHelper(getApplicationContext());
         try {
             mDatabaseHelper.createDatabase();
@@ -34,12 +42,11 @@ public class FavoritesActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        listFavorites = mDatabaseHelper.getFavoriteHymns();
+        mHymnsList = mDatabaseHelper.getListHymns(firstHymn, lastHymn);
+        mHymnListAdapter = new HymnListAdapter(getApplicationContext(), mHymnListActivity, mHymnsList);
 
-        mHymnListAdapter = new HymnListAdapter(getApplicationContext(), mFavoritesActivity, listFavorites);
-
-        if(listFavorites != null) {
-            mListView = (ListView) findViewById(R.id.listview_favorites);
+        if(mHymnsList != null) {
+            mListView = (ListView) findViewById(R.id.listview_hymns);
             mListView.setAdapter(mHymnListAdapter);
         }
 
@@ -48,15 +55,13 @@ public class FavoritesActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Log.d("LOG_TAG", "Clicked");
                 Intent intent = new Intent(getApplicationContext(), HymnActivity.class);
-                int hymnNumber = listFavorites.get(i).getNumber();
-                String hymnName = listFavorites.get(i).getTitle();
+                int hymnNumber = mHymnsList.get(i).getNumber();
+                String hymnName = mHymnsList.get(i).getTitle();
                 intent.putExtra("HYMN_NUMBER", hymnNumber);
                 intent.putExtra("HYMN_NAME", hymnName);
                 intent.putExtra("HYMN_ID", i);
                 startActivity(intent);
-                finish();
             }
         });
-
     }
 }

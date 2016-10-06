@@ -1,4 +1,4 @@
-package blkxltng.com.sdahymnal;
+package com.blkxltng.sdahymnal;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,6 +15,8 @@ import android.widget.Toast;
 
 import java.io.IOException;
 import java.util.List;
+
+import com.blkxltng.sdahymnal.R;
 
 public class HymnActivity extends AppCompatActivity {
 
@@ -129,7 +131,7 @@ public class HymnActivity extends AppCompatActivity {
 
         if(item.getItemId() == R.id.share) {
             String subject ="Hymn #" + hymnNumber + " - " + hymnName;
-            String lyrics = arrangeHymn();
+            String lyrics = subject + "\n\n" + arrangeHymn();
             Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
             sharingIntent.setType("text/plain");
             sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, subject);
