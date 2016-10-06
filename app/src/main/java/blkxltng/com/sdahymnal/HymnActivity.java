@@ -29,7 +29,10 @@ public class HymnActivity extends AppCompatActivity {
     String verse4 = "";
     String verse5 = "";
     String verse6 = "";
+    String verse7 = "";
     String refrain = "";
+    String refrain2 = "";
+    int subSection = 0;
     boolean favorited = false;
     private ShareActionProvider mShareActionProvider;
 
@@ -62,7 +65,7 @@ public class HymnActivity extends AppCompatActivity {
         TextView textViewHymnTitle = (TextView) findViewById(R.id.textview_hymntitle);
         textViewHymnTitle.setText(hymnName);
 
-        hymn = mDatabaseHelper.getHymn(hymnId);
+        hymn = mDatabaseHelper.getHymn(hymnNumber-1);
 
         getVerses();
 
@@ -149,8 +152,13 @@ public class HymnActivity extends AppCompatActivity {
             verse5 = hymn.get(0).getVerse5();
         if(hymn.get(0).getVerse6() != null)
             verse6 = hymn.get(0).getVerse6();
+        if(hymn.get(0).getVerse7() != null)
+            verse7 = hymn.get(0).getVerse7();
         if(hymn.get(0).getRefrain() != null)
             refrain = hymn.get(0).getRefrain();
+        if(hymn.get(0).getRefrain2() != null)
+            refrain2 = hymn.get(0).getRefrain2();
+        subSection = hymn.get(0).getSubSection();
     }
 
     private String arrangeHymn() {
@@ -171,6 +179,11 @@ public class HymnActivity extends AppCompatActivity {
             lyrics += "Verse 5:\n" + verse5 + "\n\n";
         if(verse6 != "")
             lyrics += "Verse 6:\n" + verse6 + "\n\n";
+        if(verse7 != "")
+            lyrics += "Verse 7:\n" + verse7 + "\n\n";
+        if(refrain2 != "")
+            lyrics += "Refrain 2:\n" + refrain2 + "\n\n";
+        lyrics += "Sub-section: " + subSection + "\n\n";
 
         return lyrics;
     }

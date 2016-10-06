@@ -44,7 +44,7 @@ public class HymnWidgetProvider extends AppWidgetProvider {
 
             int widgetId = appWidgetIds[i];
 
-            int hymnId = mRandom.nextInt(41);
+            int hymnId = mRandom.nextInt(695);
             hymn = mDatabaseHelper.getHymn(hymnId);
 
             String title = "Hymn of the Day: #" + hymn.get(0).getNumber();

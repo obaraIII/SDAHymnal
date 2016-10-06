@@ -38,12 +38,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String COL_FIRSTHYMN = "FirstHymn";
     public static final String COL_LASTHYMN = "LastHymn";
     public static final String COL_REFRAIN = "Refrain";
+    public static final String COL_REFRAIN2 = "Refrain 2";
     public static final String COL_VERSE1 = "Verse 1";
     public static final String COL_VERSE2 = "Verse 2";
     public static final String COL_VERSE3 = "Verse 3";
     public static final String COL_VERSE4 = "Verse 4";
     public static final String COL_VERSE5 = "Verse 5";
     public static final String COL_VERSE6 = "Verse 6";
+    public static final String COL_VERSE7 = "Verse 7";
     public static final String COL_FAVORITED = "Favorited";
 
     private SQLiteDatabase mDatabase;
@@ -250,7 +252,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             hymns.setId(cursor.getInt(cursor.getColumnIndex(COL_ID)));
             hymns.setTitle(cursor.getString(cursor.getColumnIndex(COL_TITLE)));
             hymns.setNumber(cursor.getInt(cursor.getColumnIndex(COL_NUMBER)));
-//                hymns.setSection(cursor.getString(cursor.getColumnIndex(COL_SECTION)));
+            hymns.setSection(cursor.getString(cursor.getColumnIndex(COL_SECTION)));
             if(cursor.getString(cursor.getColumnIndex(COL_VERSE1)) != null)
                 hymns.setVerse1(cursor.getString(cursor.getColumnIndex(COL_VERSE1)));
             if(cursor.getString(cursor.getColumnIndex(COL_VERSE2)) != null)
@@ -263,9 +265,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 hymns.setVerse5(cursor.getString(cursor.getColumnIndex(COL_VERSE5)));
             if(cursor.getString(cursor.getColumnIndex(COL_VERSE6)) != null)
                 hymns.setVerse6(cursor.getString(cursor.getColumnIndex(COL_VERSE6)));
+            if(cursor.getString(cursor.getColumnIndex(COL_VERSE7)) != null)
+                hymns.setVerse7(cursor.getString(cursor.getColumnIndex(COL_VERSE7)));
             if(cursor.getString(cursor.getColumnIndex(COL_REFRAIN)) != null)
                 hymns.setRefrain(cursor.getString(cursor.getColumnIndex(COL_REFRAIN)));
+            if(cursor.getString(cursor.getColumnIndex(COL_REFRAIN2)) != null)
+                hymns.setRefrain2(cursor.getString(cursor.getColumnIndex(COL_REFRAIN2)));
             hymns.setFavorited(cursor.getInt(cursor.getColumnIndex(COL_FAVORITED)));
+            hymns.setSubSection(cursor.getInt(cursor.getColumnIndex(COL_SUBSECTION)));
             listHymns.add(hymns);
             cursor.close();
         } catch (Exception e) {

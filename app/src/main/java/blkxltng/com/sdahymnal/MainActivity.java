@@ -113,6 +113,14 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         }
 
+        if(id == R.id.action_seeAll) {
+            Intent intent = new Intent(this, HymnList.class);
+            intent.putExtra("HYMN_SECTION", "All Hymns");
+            intent.putExtra("HYMN_SECTION_FIRST", 1);
+            intent.putExtra("HYMN_SECTION_LAST", 695);
+            startActivity(intent);
+        }
+
         return super.onOptionsItemSelected(item);
     }
 

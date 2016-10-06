@@ -8,7 +8,7 @@ public class Hymns {
     private int number;
     private String title;
     private String section;
-    private String subSection;
+    private int subSection;
     private int firstHymn;
     private int lastHymn;
     private String image;
@@ -19,8 +19,34 @@ public class Hymns {
     private String verse4;
     private String verse5;
     private String verse6;
+    private String verse7;
     private String refrain;
+    private String refrain2;
     private int favorited;
+
+    public Hymns() {
+
+    }
+
+    public Hymns(String section) {
+        this.section = section;
+    }
+
+    public String getRefrain2() {
+        return refrain2;
+    }
+
+    public void setRefrain2(String refrain2) {
+        this.refrain2 = refrain2;
+    }
+
+    public String getVerse7() {
+        return verse7;
+    }
+
+    public void setVerse7(String verse7) {
+        this.verse7 = verse7;
+    }
 
     public int getFirstHymn() {
         return firstHymn;
@@ -118,14 +144,6 @@ public class Hymns {
         this.image = image;
     }
 
-    public Hymns() {
-
-    }
-
-    public Hymns(String section) {
-        this.section = section;
-    }
-
     public int getNumber() {
         return number;
     }
@@ -150,11 +168,11 @@ public class Hymns {
         this.title = title;
     }
 
-    public String getSubSection() {
+    public int getSubSection() {
         return subSection;
     }
 
-    public void setSubSection(String subSection) {
+    public void setSubSection(int subSection) {
         this.subSection = subSection;
     }
 }
